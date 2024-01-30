@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+
+{% extends 'header.html' %}
+
+{% load static %}
+
+<html lang="en">
+
+    {% block content %} 
+     
+    <body class="body bg-dark text-white">
+               
+        <!-- Page content-->
+        <div class="container mt-5">
+            {% include "messages/message.html" %}
+            <div class="row">
+                <div class="col-lg-8">
+
+                    <!-- Post content-->
+                    <article class="bg-black rounded ps-2 pb-1 pe-1">
+                        <!-- Post header-->
+                        <header class="mb-4">
+                            <!-- Post title-->
+                            <h2 class="fw-bolder mb-3">{{post_details.title}}</h2>
+                            <!-- Post meta content-->
+                            <div class="text-muted fst-italic mb-3 fw-bold">{{post_details.date_created|date:"D, d F, Y"}} by {{post_details.author}}</div>
+                            <!-- Post categories-->
+                            {% comment %} <a class="badge bg-secondary text-decoration-none link-light" href="#!">Web Design</a> {% endcomment %}
+                            <a class="badge bg-secondary text-decoration-none link-light" href="#!">{{post_details.category}}</a>
+                        </header>
+                        <!-- Preview image figure-->
+                        <figure class="mx-auto"><img class="img-fluid rounded" src="{{post_details.upload_image.url}}" width="714" alt="..." /></figure>
+                        <!-- Post content-->
+                        <section class="mb-5">
+                            {% autoescape off %}
+                            <p class="fs-5 mb-4">{{post_details.body |safe}}</p>
+                            {% endautoescape %}
+                                
+                            <p class="author fst-italic fw-bolder">
+                                By: <span>&nbsp;</span> <a href="{% url 'aprofile' post_details.author.pk %}">{{post_details.author}}</a>
+                            </p>
+                            
+                        </section>
+                    </article>
+
+                    {% comment %} <p>{{post_details.comments.all}}</p> {% endcomment %}
+                    <!-- Comments section-->
+                    <section class="mb-5 mt-3">
+                        <div class="card bg-dark border">
+                            <div class="card-body">
+                                <!-- Comment form-->
+                                
+                                <form class="mb-4" method="post" action='{% url "commentas" post_details.pk %}'>
+                                    {% csrf_token %}
+                                    <textarea class="form-control bg-black" rows="3" name="comment" placeholder="Join the discussion and leave a comment!"></textarea>
+                                    <div class="mt-3">
+                                        <input type="submit" class="btn text-primary btn-md fw-bold fst-italic" value="Post comment">
+                                    </div>
+                                </form>
+
+                                {% if post_details.comment.all %}
+                                
+                                {% for comm in post_details.comment.all %}
+                                <!-- Single comment-->
+                                <div class="d-flex">
+                                    <div class="flex-shrink-0"><img class="rounded-circle" src="{{comm.user.profile.url}}" width="40" alt="..." /></div>
+                                    {% comment %} <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" width="40" alt="..." /></div> {% endcomment %}
+                                    <div class="ms-3">
+                                        <div class="fw-bold">{{comm.user.display_name}}</div>
+                                        <div class="fw-bold">{{comm.commenter_name}}</div>
+                                        <div class="com mb-4">
+                                            {{comm}}
+                                            {% if request.user.is_staff %}
+                                             <a href="{% url 'commdeleta' comm.pk %}"><input type="button" class="btn text-danger btn-sm fst-italic" value="Del"></a>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endfor %} 
+
+                            </div>
+                            
+                        </div>
+
+                        {% else %}
+
+                        {% comment %} <h3>{{author.display_name}}</h3> {% endcomment %}
+
+                        <p class="text-danger">No comment yet, kindly drop a comment.</p>
+
+                        {% endif %}
+
+                    </section>
+                    
+                </div>
+
+                <!-- Side widgets-->
+                {% include "sidebar.html" %}
+                
+            </div>
+            
+        </div>
+        
+        {% include "footer.html" %}
+
+    </body>
+
+    {% endblock content %}
+
+</html>

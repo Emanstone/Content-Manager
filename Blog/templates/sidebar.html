@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+
+{% load static %}
+
+<html lang="en">
+    
+
+    <body>
+
+        <!-- Page content-->
+        
+
+                <!-- Side widgets-->
+                <div class="col-lg-4">
+
+                    <!-- Search widget-->
+                    <div class="card mb-4 bg-dark fw-bold">
+                        <!-- <div class="card-header text-muted mt-3"></a> Search</div>
+                        <div class="card-body">
+                            <div class="input-group">
+                                <input class="form-control bg-black" type="text" placeholder="Enter search term..." aria-label="Enter search term..." aria-describedby="button-search" />
+                                <button class="btn btn-primary" id="button-search" type="button">Go!</button>
+                                
+                            </div>
+                        </div> -->
+
+                        <form action="https://www.google.com/search" method="get" target="_blank">
+                            <div class="card-header text-muted mt-3 fw-bold">
+                              Search
+                            </div>
+                            <div class="card-body">
+                               <div class="input-group">
+                                    <input class="form-control bg-black text-white" type="text" name="q" placeholder="Enter search term..."
+                            
+                                    aria-label="Enter search term..."
+                                    
+                                    aria-describedby="button-search">
+                            
+                                    
+                                    <button class="btn btn-primary" id="button-search" type="submit">Go!</button>                                   
+                                
+                                </div>
+                          
+                            
+                            </div>
+                          
+                        </form>
+                        
+                    </div>
+
+                    <!-- Categories widget-->
+                    <div class="card mb-4 bg-black fw-bold">
+                        <div class="card-header text-muted">Categories</div>
+                        <div class="card-body">
+                            <div class="row">
+
+                                {% for list in global_lista %}
+                                <div class="col-sm-6">
+                                    <ul class="list-unstyled mb-0 fst-italic" style="font-weight: bold;">
+                                        {% comment %} <li><a href="{% url 'category' slug=category_post.slug %}">{{ category_post.name }}>{{list.name}}</a></li> {% endcomment %}
+                                        {% comment %} <li><a href="{% url 'category' category_post.name %}">{{ list.name }}</a></li> {% endcomment %}
+                                        <li><a href="{% url 'category' list.slug %}">{{ list.name }}</a></li>
+                                    </ul>
+                                    {% if request.user.is_staff %}
+                                        <a href="{% url 'catdeleta' list.pk %}"><input type="button" class="btn text-secondary btn-sm fst-italic" value="Del"></a>
+                                    {% endif %}
+                                </div>
+                                {% endfor %}
+                                
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- Side widget-->
+                    <div class="card mb-4 bg-dark fw-bold">
+                        <div class="card-header text-muted">Place Your Ads Here</div>
+                        <div class="card-body">Ads</div>
+                    </div>
+
+                </div>
+
+        
+
+        
+    </body>
+</html>

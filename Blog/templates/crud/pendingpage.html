@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+
+{% extends 'header.html' %}
+
+{% load static %}
+
+<html lang="en">
+
+    
+    {% block content %} 
+
+    <style>
+        .card-bg{
+            /* background-color: darkred!important; */
+            background-color:rgb(87, 87, 87)!important;
+            /* background-color: black!important; */
+            border: 1px solid black;
+            border-radius: 10px;
+        }
+
+        .card-title{
+            text-align: center;
+            text-transform: capitalize;
+            /* color: dodgerblue;
+            font-weight: bolder; */
+        }
+
+        .card-text{
+            text-align: center;
+        }
+
+        .card-body{
+            text-align: center;
+        }
+
+        input{
+            border-radius: 5px;
+            text-transform: capitalize;
+        }
+
+    </style>
+
+     
+    <body class="body bg-dark text-white">
+        {% if not pending_posts %}
+        <div class="container bg-black">
+            <div class="text-center my-5 text-danger">
+                <p class="lead mb-0" style = "font-weight: bold;">Ooops! you don't any pending posts. Please create a post.</p>
+            </div>
+        </div>
+        {% else %}
+        <div class="container">
+            {% comment %} {% include "messages/message.html" %} {% endcomment %}
+            <div class="row">
+                <h3 class="mt-2 fst-italic text-muted text-centre fs-4 bg-black">Pending Posts</h3>
+                <!-- Blog entries-->
+                <div class="col-lg-8 mt-4">
+
+                    <!-- Nested row for non-featured blog posts-->
+                    {% if request.user.is_authenticated %}
+                    <div class="row">
+
+                        {% for pen in pending_posts %}
+                        
+                        <div class="col-lg-6">
+                            <!-- Blog post-->
+                            <div class="card mb-4 bg-black">
+                                <!-- {% url 'details' pen.pk %} -->
+                                <a href="#"><img class="card-img-top" src="{{pen.upload_image.url}}" width="300" height="200" alt="..." /></a>
+                                <div class="card-body">
+                                    <div class="bigger text-muted fw-bold mb-2">{{pen.date_created|date:"D, d F, Y"}}</div>
+                                    <h2 class="card-title h4">{{pen.title|slice:":50"}}</h2>
+                                    <p class="card-text">{{pen.body|slice:":0"}}</p>
+                                    {% comment %} <a class="btn btn-primary bt-sm" href="{% url 'details' pen.pk %}">Read more</a> {% endcomment %}
+                                    {% if user.is_authenticated %}
+
+                                      <a href="{% url 'editor' pen.pk %}"><input type="button" class="btn text-success btn-md fst-italic" value="Edit"></a>
+                                      {% if request.user.is_staff %}
+                                      <a href="{% url 'deleta' pen.pk %}"><input type="button" class="btn text-danger btn-md fst-italic" value="Delete"></a>
+                                      {% endif %}
+                                      {% if request.user.is_staff %}
+                                      <a href="{% url 'approver' pen.pk %}"><input type="button" class="btn text-primary btn-md fst-italic" value="Approve"></a>
+                                      {% endif %}
+                                      {% comment %} <a href="#"><input type="button" class="btn btn-danger btn-sm" value="Delete Post"></a> {% endcomment %}
+                                      
+                                    {% endif %}
+                                    
+                                </div>
+                            </div>
+  
+                        </div>
+
+                        {% endfor %}
+
+
+                    </div>
+                    {% endif %}
+
+                    <!-- Pagination-->
+                    <nav aria-label="Pagination">
+                        <hr class="my-0" />
+                        <ul class="pagination justify-content-center my-4">
+                            <li class="page-item disabled"><a class="page-link" href="#" tabindex="-1" aria-disabled="true">Newer</a></li>
+                            <li class="page-item active" aria-current="page"><a class="page-link" href="#!">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#!">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#!">3</a></li>
+                            <li class="page-item disabled"><a class="page-link" href="#!">...</a></li>
+                            <li class="page-item"><a class="page-link" href="#!">15</a></li>
+                            <li class="page-item"><a class="page-link" href="#!">Older</a></li>
+                        </ul>
+                    </nav>
+
+                </div>
+                 <!-- Side widgets-->
+
+                {% include "sidebar.html" %}
+
+                
+            </div>
+        </div>
+
+        {% endif %}
+
+        {% include "footer.html" %}
+
+    </body>
+
+    {% endblock content %}
+
+</html>
+
+{% comment %} "{% url '/admin/approve-post/{{ post.pk }}/' %}" {% endcomment %}
+    

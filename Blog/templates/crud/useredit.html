@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+
+{% extends 'header.html' %}
+
+{% load static %}
+
+<html lang="en">
+
+    
+    {% block content %} 
+
+    <style>
+
+        .form-con{
+            width: 60%;
+            margin: auto;
+            margin-bottom: 40px;
+        }
+
+        .pix{
+            text-align: center;
+        }
+        
+        .pix img{
+            border-radius: 5px;
+        }
+
+        .btn1{
+            text-align: center;
+        }
+
+        .bt{
+            width: 30%;
+            font-size: 17px;
+        }
+
+    </style>
+
+        
+    <body class="body bg-dark">
+        
+        <!-- Page content-->
+      
+        <div class="container">
+
+            <div class="container">
+
+                <div class="text-center my-5 text-primary">
+                    <h3>Edit Your Blog Post Here</h3>
+                </div>
+
+            </div>
+
+            <div class="container-form">
+
+                <form method="post" action="#" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="form-con">
+                        {% for pp in posts %}
+                        <div class="mb-3">
+                            <input type="text" name="title" id="post_title" placeholder="Post Title" class="form-control bg-black text-white" value="{{ pp.title }}">
+                        </div>
+
+                        <div class="mb-4">
+                            <textarea name="body" class="form-control bg-black text-white" id="" cols="30" rows="10" placeholder="Enter your content here">{{pp.body |safe}}</textarea>
+                        </div>
+
+                        <div class="pix mb-3">
+                            {% if pp.upload_image %}
+                            <img src="{{ pp.upload_image.url }}" alt="Current Image" style="width: 200px; height: 150px; margin-bottom: 20px;">
+                            {% endif %}
+                            <input type="file" name="postimage" id="" class="form-control bg-black text-white">
+
+                        </div>
+
+                        <div class="mb-3">
+                            <select class="form-select bg-black text-white" name="category" aria-label="Default select example">
+                                <option selected>Category</option>
+                                {% for ct in catagory %}
+                                <option value="{{ct.slug}}">{{ct.name}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        {% endfor %}
+
+                        <div class="mb-3 btn1">
+                            <input type="submit" value="Save" class="btn btn-primary bt">
+                        </div>
+
+                    </div>
+                </form>
+
+            </div>
+
+        </div>
+
+        
+
+        {% include "footer.html" %}
+
+    </body>
+
+    {% endblock content %}
+
+</html>

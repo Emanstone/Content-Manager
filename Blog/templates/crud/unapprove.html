@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+
+{% extends 'header.html' %}
+
+{% load static %}
+
+<html lang="en">
+
+    
+    {% block content %} 
+
+    <style>
+
+        .form-con{
+            width: 60%;
+            margin: auto;
+            margin-bottom: 40px;
+        }
+        
+        .p{
+            text-align: center;
+        }
+
+
+        .pix{
+            text-align: center;
+        }
+        
+        .pix img{
+            border-radius: 5px;
+        }
+
+        .btn1{
+            text-align: center;
+        }
+
+        .bt{
+            width: 25%;
+            font-size: 17px;
+        }
+
+    </style>
+
+        
+    <body class="body bg-dark">
+        
+        <!-- Page content-->
+      
+        <div class="container">
+            {% include "messages/message.html" %}
+
+            <div class="container">
+
+                <div class="text-center my-5 text-primary">
+                    <h2>Unapprove Post Here</h2>
+                </div>
+
+            </div>
+
+            <div class="container-form">
+
+                <form method="post" action="" enctype="">
+                    {% csrf_token %}
+                    <div class="form-con">
+
+                        <div class="ap text-primary text-center mb-5">
+                            <h3 class="text-warning fst-italic">Are you sure you want to unapprove this post?</h3>
+                        </div>
+
+                       
+                        <div class="mb-3 btn1">
+                            <input type="submit" value="Unapprove Post" class="btn btn-warning bt fw-bold">
+                        </div>
+
+                    </div>
+                </form>
+
+            </div>
+
+        </div>
+
+        
+
+        {% include "footer.html" %}
+
+    </body>
+
+    {% endblock content %}
+
+</html>
+
+
+

@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+
+{% extends 'header.html' %}
+
+{% load static %}
+
+<html lang="en">
+
+    
+    {% block content %}
+    <script src="https://kit.fontawesome.com/a76070024d.js" crossorigin="anonymous"></script>
+    <style>
+
+        *{
+            font-family: 'poppings', sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .profile-container {
+            margin-bottom: 20px;
+        }
+    
+        .profile-container .container {
+            width: 500px;
+            margin: 0 auto;
+            border: 2px solid skyblue;
+            border-radius: 10px;
+            height: 100vh;
+            margin-top: 9px;
+            padding: 5px;
+        }
+    
+        .profile-container .conhead {
+            margin-top: 2px;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center; 
+            position: relative;
+        }
+    
+        .profile-container .pimg img {
+            border: 1px solid skyblue;
+            border-radius: 50%;
+            width: 102px;
+            height: 102px;
+            margin-bottom: 10px; 
+        }
+
+
+        .profile-container .mark i{
+            font-weight: bold;
+            color: darkgreen;
+            font-size: 30px;
+            position: absolute;
+            right: 37.5%;
+            top: 65%;
+            transform: translateY(-40%); /* Center the element vertically */
+        }
+
+        .profile-container .name {
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .profile-container .nam {
+            font-size: 25px;
+            font-weight: bold;
+        }
+
+        .profile-container .name p {
+            font-size: 17px;
+        }
+
+        .profile-container .params {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .profile-container .par {
+            margin: 10px 20px;
+            display: block;
+        }
+
+        .profile-container .par p {
+            font-weight: 600;
+        }
+
+        .profile-container .par p1 {
+            margin-left: 12px;
+            font-weight: bolder;
+            font-size: larger;
+            padding-left: 10px;
+        }
+
+        .profile-container section {
+            margin: 10px 0 20px 0;
+            text-align: center;
+        }
+
+        .profile-container section p{
+            font-size: 17px;
+        }
+
+        .profile-container .social {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 25px;
+            margin-top: 40px;
+        }
+
+        .profile-container .social i {
+            margin: 1px 20px;
+        }
+
+        input {
+            margin-top: 20px;
+            font-weight: bold;
+            border: 3px solid skyblue;
+            padding: 5px 30px;
+            border-radius: 15px;
+            background-color: black;
+            cursor: pointer;
+            color: white;
+        }
+
+        /* .profile-container .boton {
+            margin-bottom: 10px;
+            margin-top: 7px;
+            text-align: center;
+            display: flex;
+            justify-content: space-around;
+        } */
+
+
+        .profile-container .conhead .mark .fa-circle-check[data-profile-complete="True"] {
+            color: green;
+        }
+        
+        
+        .profile-container .conhead .mark .fa-circle-check[data-profile-complete="False"] {
+            color: red;
+        }
+
+
+    </style>
+
+        
+    <body class="body bg-dark text-white">
+        
+        <script src="https://kit.fontawesome.com/a76070024d.js" crossorigin="anonymous"></script>
+        
+        <!-- Page content-->
+       
+        <div class="container profile-container">
+            {% include "messages/message.html" %}
+            <div class="container bg-black">
+                <div class="conhead">
+                    <div class="pimg">
+                        <img src="{{profile_info.profile_image_url}}" width="100px" height="100px" alt="Profile Image">
+                    </div>
+                    <div class="mark">
+                        <i class="fa-solid fa-circle-check" data-profile-complete="{{ profile_complete }}"></i>
+                    </div>
+                </div>
+            
+                <div class="name">
+                    {% comment %} <span class="nam">{{ profile_info.full_name }}</span> {% endcomment %}
+                    <span class="nam">{{ profile_info.full_name }}</span>
+                    <p>{{ profile_info.profession }}</p>
+                </div>
+                
+                <div class="params">
+                    <div class="par">
+                        <p>Posts</p>
+                        <p1>{{ profile_info.userpost.count }}</p1>
+                    </div>
+                    <div class="par">
+                        <p>Pending</p>
+                        <p1>{{profile_info.userpending.count }}</p1>
+                    </div>
+                    <div class="par">
+                        <p>Engagements</p>
+                        <p1>{{profile_info.engagement_counts.user_engaging }}</p1>
+                    </div>
+                </div>
+        
+                
+                <section>
+                    <p class="abt">{{ profile_info.about_me }}</p>
+                </section>
+                
+                <div class="social">
+                    <a href="#" target="_blank"><i class="fa-brands fa-square-twitter"></i></a>
+                    <a href="#" target="_blank"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="#" target="_blank"><i class="fa-brands fa-google-plus-g"></i></a>
+                    <a href="#" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+                </div>
+        
+                {% comment %} <div class="boton">
+                    {% if request.user.is_authenticated %}
+                    <a href="{% url 'editpro' %}"><input type="button" class="btn btn-success btn-sm" value="Update Your Profile">
+                    {% endif %}
+                         
+                    <!-- <a href="{% url 'home' %}"> <input type="button" class="btn btn-primary btn-sm" value="Back to Hompage"> -->
+                </div> {% endcomment %}
+                    
+            </div>
+
+        </div>
+
+        {% include "footer.html" %}
+
+    </body>
+
+    {% endblock content %}
+
+</html>

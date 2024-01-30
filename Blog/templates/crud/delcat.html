@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+
+{% extends 'header.html' %}
+
+{% load static %}
+
+<html lang="en">
+
+    
+    {% block content %} 
+
+    <style>
+
+        .form-con{
+            width: 60%;
+            margin: auto;
+            margin-bottom: 40px;
+        }
+        
+        .p{
+            text-align: center;
+        }
+
+
+        .pix{
+            text-align: center;
+        }
+        
+        .pix img{
+            border-radius: 5px;
+        }
+
+        .btn1{
+            text-align: center;
+        }
+
+        .bt{
+            width: 20%;
+            font-size: 17px;
+        }
+
+    </style>
+
+        
+    <body  class="body bg-dark">
+        
+        <!-- Page content-->
+      
+        <div class="container">
+
+            <div class="container">
+
+                <div class="text-center my-5 text-primary fw-bold">
+                    <h3>Delete Category</h3>
+                </div>
+
+            </div>
+
+            <div class="container-form">
+
+                <form method="post" action="{{list.delete}}" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="form-con">
+                        
+                        <div class="p mb-5 fw-bolder text-danger fst-italic">
+                            <h4>Are you sure ?  Deleting a Category also deletes the posts in the category.. </h4>                         
+                        </div>
+
+                        <div class="mb-3 btn1 mt-5">
+                            <input type="submit" value="Delete" class="btn btn-danger bt">
+                        </div>
+
+                    </div>
+                </form>
+
+            </div>
+
+        </div>
+
+        
+
+        {% include "footer.html" %}
+
+    </body>
+
+    {% endblock content %}
+
+</html>

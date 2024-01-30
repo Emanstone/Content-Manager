@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+
+{% extends 'header.html' %}
+
+{% load static %}
+
+<html lang="en">
+
+    
+    {% block content %} 
+
+    <style>
+
+        .form-con{
+            width: 60%;
+            margin: auto;
+            margin-bottom: 40px;
+        }
+        
+        .p{
+            text-align: center;
+        }
+
+
+        .pix{
+            text-align: center;
+        }
+        
+        .pix img{
+            border-radius: 5px;
+        }
+
+        .btn1{
+            text-align: center;
+        }
+
+        .bt{
+            width: 25%;
+            font-size: 17px;
+        }
+
+    </style>
+
+        
+    <body class="body bg-dark">
+        
+        <!-- Page content-->
+      
+        <div class="container">
+            {% include "messages/message.html" %}
+
+            <div class="container">
+
+                <div class="text-center my-5 text-primary">
+                    <h2>Approve Post Here</h2>
+                </div>
+
+            </div>
+
+            <div class="container-form">
+
+                <form method="post" action="" enctype="">
+                    {% csrf_token %}
+                    <div class="form-con">
+
+                        <div class="ap text-center mb-5">
+                            <h3 class="text-warning fst-italic">Are you sure you want to approve this post?</h3>
+                        </div>
+
+                       
+                        <div class="mb-3 btn1">
+                            <input type="submit" value="Approve Post" class="btn btn-primary bt fw-bold">
+                        </div>
+
+                    </div>
+                </form>
+
+            </div>
+
+        </div>
+
+        
+
+        {% include "footer.html" %}
+
+    </body>
+
+    {% endblock content %}
+
+</html>
+
+
+
+
+
+
+
+{% comment %} <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <div class="ap" style="text-align: center;">
+        <h1>Approve Post</h1>
+        <p style="font-size: 20px; color: green;">Are you sure you want to approve this post?</p>
+    </div>
+     
+    <form method="post" style="text-align: center; font-size: 50px;">
+        {% csrf_token %}
+        <input type="submit" value="Approve" style="font-size: 20px;">
+    </form> 
+ 
+</body>
+</html> {% endcomment %}

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+
+{% extends 'header.html' %}
+<script src="https://cdn.ckeditor.com/4.22.1/standard/ckeditor.js"></script>
+
+{% load static %}
+
+<html lang="en">
+
+    
+    {% block content %} 
+
+    <style>
+
+        .form-con{
+            width: 60%;
+            margin: auto;
+            margin-bottom: 40px;
+        }
+
+        .btn1{
+            text-align: center;
+        }
+
+        .bt{
+            width: 30%;
+            font-size: 17px;
+        }
+
+    </style>
+
+        
+    <body class="body bg-dark">
+        
+        <!-- Page content-->
+      
+        <div class="container">
+            {% include "messages/message.html" %}
+
+            <div class="container">
+
+                <div class="text-center my-5 text-primary">
+                    <h3>Create Your Blog Post Here</h3>
+                    {% comment %} <p>{{category}}</p> {% endcomment %}
+                </div>
+
+            </div>
+
+            <div class="container-form">
+
+                <form method="post" action="#" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="form-con">
+
+                        <div class="mb-3">
+                            <input type="text" name="title" id="" placeholder="Post Title" class="form-control bg-black">
+                        </div>
+
+                        <div class="mb-3">
+                            <textarea name="body" id="" cols="30" rows="10" placeholder="Enter your content here"></textarea>
+                            <script src="https://cdn.ckeditor.com/4.22.1/standard/ckeditor.js"></script>
+                            <script>
+                                CKEDITOR.replace('body');
+                            </script>
+                        </div>
+
+                        <div class="mb-3">
+                            <input type="file" name="postimage" id="" class="form-control bg-black text-white">
+                        </div>
+
+                        <div class="mb-3">
+                            <select class="form-select bg-black text-white" name="category" aria-label="Default select example">
+                                <option selected>Category</option>
+                                {% for mycat in category %}
+                                <option value="{{mycat.slug}}">{{mycat.name}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <div class="mb-3 btn1">
+                            <input type="submit" value="Create post" class="btn btn-primary bt">
+                        </div>
+
+                    </div>
+                </form>
+
+            </div>
+
+        </div>
+
+        
+
+        {% include "footer.html" %}
+
+    </body>
+
+    {% endblock content %}
+
+</html>

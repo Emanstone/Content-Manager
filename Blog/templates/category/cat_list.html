@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+
+{% extends 'header.html' %}
+
+{% load static %}
+
+<html lang="en">
+
+    {% block content %} 
+     
+    <body class="body bg-dark text-white">
+        
+        <!-- Page header with logo and tagline-->
+        {% comment %} <header class="py-4 bg-light border-bottom mb-4">
+            <div class="container">
+                <div class="text-center my-0">
+                    <h1 class="fw-bolder">Welcome to Manuel's Blog!</h1>
+                    <p class="lead mb-0">Category page</p>
+                </div>
+            </div>
+        </header> {% endcomment %}
+
+        <!-- Page content-->
+        {% if not category_by_post %}
+
+        <div class="container py-5 bg-black">
+            <div class="text-center my-5 text-danger fst-italic">
+                <h2>Ooops! you do not have any posts approved in this category yet. Kindly contact the administrator.</h2>
+            </div>
+        </div>
+
+        {% else %}
+
+        <div class="container mt-3">
+            <div class="row">
+                {% comment %} {{category_by_post}} {% endcomment %}
+
+                <!-- Blog entries-->
+                <div class="col-lg-8">
+
+                    <!-- Featured blog post-->
+                   
+                    <!-- Nested row for non-featured blog posts-->
+                    <div class="row">
+                        
+                        {% for p in category_by_post %}
+                        
+                        <div class="col-lg-6">
+
+                            <div class="card-body bg-black rounded">
+                                <h6 class="text-muted fst-italic fw-bold mb-3 mt-4 focus-bg d-inline-block px-3 py-0">{{p.category}}</h6>
+                            </div>
+
+                            <!-- Blog post-->
+                            <div class="card mb-4 bg-dark">
+                                <a href="{% url 'details' p.pk %}"><img class="card-img-top" src="{{p.upload_image.url}}" width="200" height="200" alt="..." /></a>
+                                <div class="card-body">
+                                    <div class="bigger text-muted fw-bold">{{p.date_created|date:"D, d F, Y"}}</div>
+                                    <h2 class="card-title h4">{{p.title|slice:":50"}}</h2>
+                                    <p class="card-text">{{p.body|slice:":100"}}</p>
+                                    <a class="btn text-primary btn-md fw-bold" href="{% url 'details' p.pk %}">Read more →</a>
+                                </div>
+                            </div>
+  
+                        </div>
+
+                        {% endfor %}
+
+                    </div>
+
+                    <!-- Pagination-->
+                    <nav aria-label="Pagination">
+                        <hr class="my-0" />
+                        <ul class="pagination justify-content-center my-4">
+                            <li class="page-item disabled"><a class="page-link" href="#" tabindex="-1" aria-disabled="true">Newer</a></li>
+                            <li class="page-item active" aria-current="page"><a class="page-link" href="#!">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#!">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#!">3</a></li>
+                            <li class="page-item disabled"><a class="page-link" href="#!">...</a></li>
+                            <li class="page-item"><a class="page-link" href="#!">15</a></li>
+                            <li class="page-item"><a class="page-link" href="#!">Older</a></li>
+                        </ul>
+                    </nav>
+
+                </div>
+            
+                <!-- Side widgets-->
+                {% include "sidebar.html" %}
+              
+            </div>
+        </div>
+        {% endif %}
+
+        {% include "footer.html" %}
+
+    </body>
+
+    {% endblock content %}
+
+</html>

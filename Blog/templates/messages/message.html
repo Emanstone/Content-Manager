@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <style>
+        .mt-2 {
+            margin-top: 0.5rem!important;
+            width: 80%;
+            margin: auto;
+            text-align: center;
+            font-size: 18px;
+        }
+    </style>
+    
+  </head>
+  <body>
+    
+    {% if messages %}
+
+    <div class="messages mt-2">
+        {% for mymessage in messages %}
+
+          {% if mymessage.tags %}
+          <div class="alert {{mymessage.tags}}" role="alert">
+              {% endif %}
+              {{mymessage}}
+          </div>
+
+        {% endfor %}
+    </div>
+    
+    {% endif %}
+
+
+
+    
+  </body>
+</html>

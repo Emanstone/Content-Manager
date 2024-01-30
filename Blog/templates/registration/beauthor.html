@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+
+{% extends 'header.html' %}
+
+{% load static %}
+
+<html lang="en">
+
+    
+    {% block content %} 
+
+    <style>
+
+        form{
+            width: 38%;
+            margin: auto;
+            margin-bottom: 15px;
+            display: block;
+            height: 85vh;
+            padding-left: 40px;
+        }
+
+        input {
+            margin-bottom: 10px;
+            width: 90%;
+        }
+
+        textarea {
+            margin-bottom: 5px;
+            width: 90%;
+        }
+
+
+        h3 {
+            text-align: center;
+            color: green;
+        }
+
+        .btn{
+            text-align: center;
+            margin: auto;
+        }
+
+
+    </style>
+
+        
+    <body class="body bg-dark">
+        
+        <!-- Page content-->
+      
+        <div class="container">
+            {% include "messages/message.html" %}
+
+            <h3  class="text-primary fw-bold mb-4 mt-3">Create Your Profile & Become An Author</h3>
+
+            <form method="post" enctype="multipart/form-data" action="{% url 'beauthor' %}">
+                {% csrf_token %}
+                <label for="profileImage" class="bg-black text-white">Profile Image:</label>
+                <input class="bg-black text-white" type="file" name="postimage" id="profileImage">
+
+                <input class="bg-black text-white" type="text" name="displayname" id="displayname" placeholder="Display Name" value="{{ displayname }}">
+
+                
+                <input class="bg-black text-white" type="text" name="Fullname" id="fullName" placeholder="Full Name" value="{{ Fullname }}">
+
+                
+                <input class="bg-black text-white" type="text" name="Profession" id="profession" placeholder="Profession" value="{{ Profession }}">
+
+                
+                <textarea class="bg-black text-white" name="body" id="body" placeholder="About Me" rows="2"></textarea>
+
+                
+                <input class="bg-black text-white" type="text" name="Twitter" id="twitter" placeholder="Twitter Hanadle" value="{{ Twitter }}">
+
+                
+                <input class="bg-black text-white" type="text" name="Facebook" id="facebook" placeholder="Facebook Handle" value="{{ Facebook }}">
+
+                
+                <input class="bg-black text-white" type="text" name="Google +" id="googlePlus" placeholder="Google +" value="{{ Google_plus }}">
+
+                
+                <input class="bg-black text-white" type="text" name="Instagram" id="instagram" placeholder="Instagram Handle" value="{{ Instagram }}"><br>
+
+                <a href="{% url 'editpro' %}"><input type="submit" value="Save" class="btn btn-primary mt-3">
+
+            </form>
+
+            </div>
+
+        </div>
+
+        
+
+        {% include "footer.html" %}
+
+    </body>
+
+    {% endblock content %}
+
+</html>

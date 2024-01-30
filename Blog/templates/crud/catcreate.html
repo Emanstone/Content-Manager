@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+
+{% extends 'header.html' %}
+<script src="https://cdn.ckeditor.com/4.22.1/standard/ckeditor.js"></script> 
+
+{% load static %}
+
+<html lang="en">
+
+    
+    {% block content %}
+    
+
+    <style>
+
+        .form-con{
+            width: 60%;
+            margin: auto;
+            margin-bottom: 40px;
+        }
+
+        .btn1{
+            text-align: center;
+        }
+
+        .bt{
+            width: 30%;
+            font-size: 17px;
+        }
+
+    </style>
+
+        
+    <body class="bg-dark">
+        
+        <!-- Page content-->
+      
+        <div class="container">
+            {% include "messages/message.html" %}
+
+            <div class="container">
+
+                <div class="text-center my-5 text-primary fw-bold">
+                    <h3>Create Your Categories Here</h3>
+                    {% comment %} <p>{{category}}</p> {% endcomment %}
+                </div>
+
+            </div>
+
+            <div class="container-form">
+
+                <form method="post" action="#" enctype="multipart/form-data">
+                    {% csrf_token %}
+                   
+                    <div class="form-con">
+
+                        <div class="mb-3">
+                            <input type="text" name="category" id="" placeholder="Category Name" class="form-control bg-black text-white" required>
+                    
+                        </div>
+
+                        <div class="mb-3 btn1">
+                            <input type="submit" value="Create Category" class="btn btn-primary bt mt-5">
+                        </div>
+                        
+                    </div>
+                </form>
+                
+
+            </div>
+
+        </div>
+
+        
+
+        {% include "footer.html" %}
+
+    </body>
+
+    {% endblock content %}
+
+</html>
